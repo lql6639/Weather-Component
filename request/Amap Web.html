@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Amap Web</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 城市名称
+			const city = "江门";
+			// 替换成你需要的查询类型	实时-base	预报-all
+			const extensions = "base";
+			// 替换成你的amap web apikey
+			const apikey = "2863ccd3a9e0df85433cf960ed3eaade";
+
+			function getData() {
+
+				const url = `https://restapi.amap.com/v3/weather/weatherInfo?city=${city}&key=${apikey}&extensions=${extensions}`;
+
+				// 使用XMLHttpRequest对象发送 GET 请求
+				const xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+						// 从响应中获取JSON格式的信息
+						const data = JSON.parse(xhr.responseText);
+						// 打印返回数据
+						console.log(data);
+					}
+				};
+				xhr.open("GET", url);
+				xhr.send();
+			}
+
+			// 页面加载完成后调用getData函数获取数据
+			window.onload = function() {
+				getData();
+			};
+		</script>
+	</body>
+</html>

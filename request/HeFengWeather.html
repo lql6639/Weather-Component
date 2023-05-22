@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>HeFengWeather</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 替换成你要查询的城市经度,纬度坐标
+			const lon_lat = "113.09494,22.590431";
+			// 替换成你获取语言的输出
+			const lang = "zh";
+			// 替换成你的hefeng apikey
+			const apikey = "855acee6d554485489e0b78c3f5f6d90";
+
+			function getData() {
+
+				const url = `https://devapi.qweather.com/v7/indices/3d?type=0&location=${lon_lat}&key=${apikey}&lang=${lang}`;
+
+				// 使用XMLHttpRequest对象发送 GET 请求
+				const xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+						// 从响应中获取JSON格式的信息
+						const data = JSON.parse(xhr.responseText);
+						// 打印返回数据
+						console.log(data);
+					}
+				};
+				xhr.open("GET", url);
+				xhr.send();
+			}
+
+			// 页面加载完成后调用getData函数获取数据
+			window.onload = function() {
+				getData();
+			};
+		</script>
+	</body>
+</html>

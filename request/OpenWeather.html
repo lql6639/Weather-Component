@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>OpenWeather</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 替换成你要查询的城市名称
+			const cityName = "Jiangmen";
+			// 替换成你需要的计量单位
+			const units = "metric";
+			// 替换成你获取语言的输出
+			const lang = "zh_cn";
+			// 替换成你的openweather apikey
+			const apikey = "3f75ea9fb6769c34a9c8874137d34886";
+
+			function getData() {
+
+				const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${units}&appid=${apikey}&lang=${lang}`;
+
+				// 使用XMLHttpRequest对象发送 GET 请求
+				const xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+						// 从响应中获取JSON格式的信息
+						const data = JSON.parse(xhr.responseText);
+						// 打印返回数据
+						console.log(data);
+					}
+				};
+				xhr.open("GET", url);
+				xhr.send();
+			}
+
+			// 页面加载完成后调用getData函数获取数据
+			window.onload = function() {
+				getData();
+			};
+		</script>
+	</body>
+</html>

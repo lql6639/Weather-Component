@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>XinZhiWeather</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 城市名称
+			const city = "江门";
+			// 替换成你获取语言的输出
+			const lang = "zh-Hans";
+			// 替换成你的xinzhi apikey
+			const apikey = "SeKEyOrUDlgaPHWwF";
+
+			function getData() {
+
+				const url = `https://api.seniverse.com/v3/life/suggestion.json?location=${city}&key=${apikey}&language=${lang}&days=5`;
+
+				// 使用XMLHttpRequest对象发送 GET 请求
+				const xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+						// 从响应中获取JSON格式的信息
+						const data = JSON.parse(xhr.responseText);
+						// 打印返回数据
+						console.log(data);
+					}
+				};
+				xhr.open("GET", url);
+				xhr.send();
+			}
+
+			// 页面加载完成后调用getData函数获取数据
+			window.onload = function() {
+				getData();
+			};
+		</script>
+	</body>
+</html>

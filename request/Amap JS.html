@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Amap JS</title>
+	</head>
+	<body>
+		<!--引入高德地图JSAPI -->
+		<script lang="javascript" type="text/javascript"
+			src="https://webapi.amap.com/maps?v=2.0&key=bc4511010331c3e46544318c6e0b9321">
+		</script>
+
+		<!--引入UI组件库（1.1版本） -->
+		<script lang="javascript" type="text/javascript" src="https://webapi.amap.com/ui/1.1/main.js"></script>
+
+		<!--异步加载 高德地图JSAPI -->
+		<script lang="javascript" type="text/javascript"
+			src="https://webapi.amap.com/maps?v=2.0&key=bc4511010331c3e46544318c6e0b9321&callback=my_init"></script>
+
+		<!--引入UI组件库异步版本main-async.js（1.1版本） -->
+		<script lang="javascript" type="text/javascript" src="https://webapi.amap.com/ui/1.1/main-async.js"></script>
+
+		<script lang="javascript" type="text/javascript">
+			//JSAPI回调入口
+			function my_init() {
+				// 调用initAMapUI初始化
+				initAMapUI();
+				//其他逻辑
+			}
+			my_init()
+		</script>
+
+		<script lang="javascript" type="text/javascript">
+			// 城市名称
+			const city = "广州";
+			// 替换成你的Amap JS API Security Key
+			const AmapJsApiSecurityKey = "e6bb93a25d43e389d42ab5823eba036e";
+			// 进行安全配置 ，验证API的合法性
+			window._AMapSecurityConfig = {
+				// 安全密钥
+				securityJsCode: `${AmapJsApiSecurityKey}`,
+			}
+		</script>
+
+		<script lang="javascript" type="text/javascript"
+			src="https://webapi.amap.com/maps?v=1.4.15&key=bc4511010331c3e46544318c6e0b9321">
+		</script>
+
+		<script lang="javascript" type="text/javascript">
+			//加载天气查询插件
+			AMap.plugin('AMap.Weather', function() {
+				//创建天气查询实例
+				var weather = new AMap.Weather();
+				//执行天气信息查询
+				// getLive 实时天气查询
+				weather.getLive(`${city}`, function(err, live_data) {
+					console.log("高德地图 JS API 实时查询");
+					console.log(live_data);
+				});
+				// getForecast 预报天气查询
+				weather.getForecast(`${city}`, function(err, forecast_data) {
+					console.log("高德地图 JS API 预报查询");
+					console.log(forecast_data);
+				});
+			});
+		</script>
+	</body>
+</html>
